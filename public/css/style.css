@@ -55,6 +55,19 @@ span:hover{
   border-radius:4px;
 }
 
+#clear{
+   margin-left:120px;
+  background:#19A3D1;
+  color:#672929;
+  font-size:16px;
+  border:none;
+  padding:8px 20px;
+  letter-spacing:2px;
+  box-shadow:0 2px 0 0 #662929;
+  border-radius:4px;
+
+}
+
 button{
   margin-top: 5px;
 }

@@ -22,13 +22,10 @@ $(document).ready(function(){
         $('input').val(""); // clears the input bar
         $('ul').empty(); // clears the ul before appending ALL of the to_dos from the db
        
-
         array.forEach(function(el){
         $("ul").append("<li>"+el.task+"</li>");
         });
-     
       });
-
   }
   else{
     console.log("NO INPUT!!!");
