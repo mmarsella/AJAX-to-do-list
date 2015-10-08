@@ -5,7 +5,6 @@ var db = require("./models");
 var methodOverride = require("method-override");
 var morgan = require("morgan");
 
-
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 //server-side logger.  Logs requests to the terminal
@@ -18,15 +17,28 @@ app.use(bodyParser.urlencoded({extended:true}));
   
 //ROOT
 app.get("/", function (req,res){
-  res.render("index");
+  db.Todo.find({}, function (err, todos){
+    res.render("index",{todos:todos});
+  });
 });
+
+
+
 
 //EDIT
 app.get("/users/:id/edit", function (req,res){
 });
 
 //CREATE
-app.post("/users", function (req,res){
+app.post("/todos", function (req,res){
+  console.log("THE INPUT:",req.body);
+  var date = new Date();
+  db.Todo.create({
+  date:date,
+  task:req.body.input   //grab the form data from the BODY!
+  });
+
+res.redirect("/");  // after AJAX call, redirect to root
 });
 
 //UPDATE
