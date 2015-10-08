@@ -32,6 +32,23 @@ $(document).ready(function(){
   }
   });
 
+/**** CLEAR BUTTON ***************/
+
+$("#clear").on("click", function(e){
+  e.preventDefault();
+    $('ul').empty();  //clear out all the todos.
+
+  $.ajax({
+    url:"/clear",
+    dataType:"json",
+    method: "DELETE",  //can we use put and delete??
+  }).done(function(serverResponse){
+  });
+
+});
+
+
+
 
 
 

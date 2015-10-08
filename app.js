@@ -23,8 +23,6 @@ app.get("/", function (req,res){
 });
 
 
-
-
 //EDIT
 app.get("/users/:id/edit", function (req,res){
 });
@@ -43,7 +41,6 @@ app.post("/todos", function (req,res){
 2) preventing default of the form - to prevent page refresh
 3) sending back all of the db docs to the DOM
 */
-
 db.Todo.find({}, function (err,todos){ 
   res.format({
         'application/json': function(){
@@ -54,16 +51,24 @@ db.Todo.find({}, function (err,todos){
           res.status(406).send('Not Acceptable');
         }
     });
+  });
+}); 
+
+
+//DESTROY ALL
+app.delete("/clear", function (req,res){
+  console.log("INSIDE THE DESTROY ALL!");
+  db.Todo.remove({}, function (err){
+    if(err){
+      console.log(err);
+    }
+  });
+
 });
 
-}); //POST ENDS
-
-//UPDATE
-app.put("/users/:id", function (req,res){
-});
 
 //DESTROY
-app.delete("/users/:id", function (req,res){
+app.delete("/todos/:id", function (req,res){
 });
 
 
