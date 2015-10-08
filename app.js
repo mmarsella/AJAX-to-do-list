@@ -38,8 +38,25 @@ app.post("/todos", function (req,res){
   task:req.body.input   //grab the form data from the BODY!
   });
 
-res.redirect("/");  // after AJAX call, redirect to root
+/*
+1) Sending form info to the server
+2) preventing default of the form - to prevent page refresh
+3) sending back all of the db docs to the DOM
+*/
+
+db.Todo.find({}, function (err,todos){ 
+  res.format({
+        'application/json': function(){
+          res.send({todos:todos});  //sending back 11am forecast
+        },
+        'default': function() {
+          // log the request and respond with 406
+          res.status(406).send('Not Acceptable');
+        }
+    });
 });
+
+}); //POST ENDS
 
 //UPDATE
 app.put("/users/:id", function (req,res){
