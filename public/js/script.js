@@ -27,6 +27,7 @@ $(document).ready(function(){
           /****** DELETE BUTTON ***********/
         //will only work inside of .done b/c the dom (when first loaded) doesn't know about all of the new li's.
          delItemAndRefresh();
+         addCrossout();
         });  //END OF SUBMIT .done
     }else{
       console.log("NO INPUT!!!");
@@ -68,6 +69,7 @@ function delItemAndRefresh (){
     newArray.forEach(function(el){
     $("ul").append("<li>"+el.task+"<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
         delItemAndRefresh();
+        addCrossout();
       });
     });
   });  //end delete click
@@ -76,9 +78,12 @@ function delItemAndRefresh (){
 
 /******** CROSSOUT *********/
 
-$("li").on("click",function (){
 
-});
+function addCrossout(){
+  $("li").on("click",function (){
+    $(this).toggleClass("completed");
+  });  
+}
 
 
 
