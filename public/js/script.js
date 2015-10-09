@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
 /**********CREATE**************/
 /******************************/
 
@@ -23,8 +22,14 @@ $(document).ready(function(){
         $('ul').empty(); // clears the ul before appending ALL of the to_dos from the db
        
         array.forEach(function(el){
-        $("ul").append("<li>"+el.task+"</li>");
+        $("ul").append("<li>"+el.task+ "<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
+            /****** DELETE BUTTON ***********/
+
         });
+            $(".del").on("click", function (e){
+              console.log(this.id);
+
+            });
       });
   }
   else{
@@ -46,6 +51,11 @@ $("#clear").on("click", function(e){
   });
 
 });
+
+
+
+
+
 
 
 
