@@ -20,13 +20,10 @@ $(document).ready(function(){
         var array = serverResponse.todos;
         $('input').val(""); // clears the input bar
         $('ul').empty(); // clears the ul before appending ALL of the to_dos from the db
-       
         array.forEach(function(el){
-        $("ul").append("<li>"+el.task+"<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
+        $("ul").append("<li>"+el.task+"<button class='del' data-id=" + el._id + " type='button'>X</button>" + "</li>");
         });
-          /****** DELETE BUTTON ***********/
-        //will only work inside of .done b/c the dom (when first loaded) doesn't know about all of the new li's.
-         delItemAndRefresh();
+         delItemAndRefresh(); //will only work inside of .done b/c the dom (when first loaded) doesn't know about all of the new li's.
          addCrossout();
         });  //END OF SUBMIT .done
     }else{
@@ -38,52 +35,44 @@ $(document).ready(function(){
 $("#clear").on("click", function(e){
   e.preventDefault();
     $('ul').empty();  //clear out all the todos.
-
   $.ajax({
     url:"/clear",
     dataType:"json",
     method: "DELETE",  //can we use put and delete??
   }).done(function(serverResponse){
   });
-
 });
 
 /***** DELETE BUTTON *******/
 /***************************/
  
 //after delete, add all of the li's w/ a on click/del event listener
-function delItemAndRefresh (){
-  $(".del").on("click", function (e){
-    var delButton = this.id;
+
+  $("body").on("click", ".del" ,function (e){
+    //remove element w/jquery
+    $(this).parent().remove();
+    var delButton = $(this).data("id");  // this refers to the delegate..... .del
     $.ajax({
-      url:"/todos",
+      url:"/todos/"+$(this).data("id"),
       dataType:"json",
       method:"DELETE",
-      data:{
-        delButton:delButton
-      }
-    }).done(function(afterDelete){
-       var newArray = afterDelete.todos;
-    $('ul').empty(); // clears the ul before appending ALL of the to_dos from the db
-
-    newArray.forEach(function(el){
-    $("ul").append("<li>"+el.task+"<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
-        delItemAndRefresh();
-        addCrossout();
+    }).done(function(){
+   
       });
     });
-  });  //end delete click
-}
+    //end delete click
+
 
 
 /******** CROSSOUT *********/
-
 
 function addCrossout(){
   $("li").on("click",function (){
     $(this).toggleClass("completed");
   });  
 }
+
+
 
 
 

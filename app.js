@@ -55,26 +55,23 @@ db.Todo.find({}, function (err,todos){
 }); 
 
 //DESTROY
-app.delete("/todos", function (req,res){
+app.delete("/todos/:id", function (req,res){
     console.log("THE DELETE INPUT:",req.body);
-      db.Todo.findByIdAndRemove(req.body.delButton, function (err){
+      db.Todo.findByIdAndRemove(req.params.id, function (err){
         if(err){
           console.log(err);
-        }else{
-          db.Todo.find({}, function (err,todos){
-              res.format({
-        'application/json': function(){
-          res.send({todos:todos});  //sending back 11am forecast
-        },
-        'default': function() {
-          // log the request and respond with 406
-          res.status(406).send('Not Acceptable');
+        }else{  
+        res.format({
+          'application/json': function(){
+            res.send("DELETED");  //sending back 11am forecast
+          },
+          'default': function() {
+            // log the request and respond with 406
+            res.status(406).send('Not Acceptable');
+            }
+          });
         }
     });
-          });
-
-        }
-      });
 });
 
 //DESTROY ALL
