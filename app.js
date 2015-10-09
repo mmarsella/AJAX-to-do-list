@@ -54,6 +54,15 @@ db.Todo.find({}, function (err,todos){
   });
 }); 
 
+//DESTROY
+app.delete("/todos", function (req,res){
+    console.log("THE DELETE INPUT:",req.body);
+      db.Todo.findByIdAndRemove(req.body.delButton, function (err){
+        if(err){
+          console.log(err);
+        }
+      });
+});
 
 //DESTROY ALL
 app.delete("/clear", function (req,res){
@@ -67,9 +76,6 @@ app.delete("/clear", function (req,res){
 });
 
 
-//DESTROY
-app.delete("/todos/:id", function (req,res){
-});
 
 
 

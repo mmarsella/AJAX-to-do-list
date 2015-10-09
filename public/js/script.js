@@ -22,14 +22,25 @@ $(document).ready(function(){
         $('ul').empty(); // clears the ul before appending ALL of the to_dos from the db
        
         array.forEach(function(el){
-        $("ul").append("<li>"+el.task+ "<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
+        $("ul").append("<li>"+el.task+"<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
             /****** DELETE BUTTON ***********/
 
         });
+        //will only work inside of .done b/c the dom (when first loaded) doesn't know about all of the new li's.
             $(".del").on("click", function (e){
-              console.log(this.id);
 
-            });
+              var delButton = this.id;
+              $.ajax({
+                url:"/todos",
+                dataType:"json",
+                method:"DELETE",
+                data:{
+                  delButton:delButton
+                }
+              });
+
+              console.log(this.id);
+            });  //end delete click
       });
   }
   else{
@@ -38,7 +49,6 @@ $(document).ready(function(){
   });
 
 /**** CLEAR BUTTON ***************/
-
 $("#clear").on("click", function(e){
   e.preventDefault();
     $('ul').empty();  //clear out all the todos.
@@ -51,6 +61,10 @@ $("#clear").on("click", function(e){
   });
 
 });
+
+/***** DELETE BUTTON *******/
+
+
 
 
 
