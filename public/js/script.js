@@ -37,9 +37,19 @@ $(document).ready(function(){
                 data:{
                   delButton:delButton
                 }
+              }).done(function(afterDelete){
+                 var newArray = afterDelete.todos;
+            $('ul').empty(); // clears the ul before appending ALL of the to_dos from the db
+       
+              newArray.forEach(function(el){
+              $("ul").append("<li>"+el.task+"<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
+            /****** DELETE BUTTON ***********/
+
+        });
+
               });
 
-              console.log(this.id);
+              // console.log(this.id);
             });  //end delete click
       });
   }

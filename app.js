@@ -60,6 +60,19 @@ app.delete("/todos", function (req,res){
       db.Todo.findByIdAndRemove(req.body.delButton, function (err){
         if(err){
           console.log(err);
+        }else{
+          db.Todo.find({}, function (err,todos){
+              res.format({
+        'application/json': function(){
+          res.send({todos:todos});  //sending back 11am forecast
+        },
+        'default': function() {
+          // log the request and respond with 406
+          res.status(406).send('Not Acceptable');
+        }
+    });
+          });
+
         }
       });
 });
