@@ -1,8 +1,13 @@
-AJAX assignment
+AJAX to_do
 
-Make a to-do list with a mongodb.
+A to-do list that:
 
-——— Add and remove to-do’s with ajax calls.
-  — Single page (so one get-route) and a post/delete route.
+- Adds and removes to-do’s with ajax calls.
+- Uses mongodb.
+- Single page (so one get-route) and a post/delete route.
 
-  
+
+
+Features to add:  
+
+-  Refactor to use handlebars js.
