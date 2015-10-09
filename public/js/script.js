@@ -23,40 +23,15 @@ $(document).ready(function(){
        
         array.forEach(function(el){
         $("ul").append("<li>"+el.task+"<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
-            /****** DELETE BUTTON ***********/
-
         });
+          /****** DELETE BUTTON ***********/
         //will only work inside of .done b/c the dom (when first loaded) doesn't know about all of the new li's.
-            $(".del").on("click", function (e){
-
-              var delButton = this.id;
-              $.ajax({
-                url:"/todos",
-                dataType:"json",
-                method:"DELETE",
-                data:{
-                  delButton:delButton
-                }
-              }).done(function(afterDelete){
-                 var newArray = afterDelete.todos;
-            $('ul').empty(); // clears the ul before appending ALL of the to_dos from the db
-       
-              newArray.forEach(function(el){
-              $("ul").append("<li>"+el.task+"<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
-            /****** DELETE BUTTON ***********/
-
-        });
-
-              });
-
-              // console.log(this.id);
-            });  //end delete click
-      });
-  }
-  else{
-    console.log("NO INPUT!!!");
-  }
-  });
+         delItemAndRefresh();
+        });  //END OF SUBMIT .done
+    }else{
+      console.log("NO INPUT!!!");
+      }
+    });
 
 /**** CLEAR BUTTON ***************/
 $("#clear").on("click", function(e){
@@ -73,8 +48,37 @@ $("#clear").on("click", function(e){
 });
 
 /***** DELETE BUTTON *******/
+/***************************/
+ 
+//after delete, add all of the li's w/ a on click/del event listener
+function delItemAndRefresh (){
+  $(".del").on("click", function (e){
+    var delButton = this.id;
+    $.ajax({
+      url:"/todos",
+      dataType:"json",
+      method:"DELETE",
+      data:{
+        delButton:delButton
+      }
+    }).done(function(afterDelete){
+       var newArray = afterDelete.todos;
+    $('ul').empty(); // clears the ul before appending ALL of the to_dos from the db
+
+    newArray.forEach(function(el){
+    $("ul").append("<li>"+el.task+"<button class='del' id=" + el._id + " type='button'>X</button>" + "</li>");
+        delItemAndRefresh();
+      });
+    });
+  });  //end delete click
+}
 
 
+/******** CROSSOUT *********/
+
+$("li").on("click",function (){
+
+});
 
 
 
