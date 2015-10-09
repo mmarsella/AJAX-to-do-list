@@ -11,10 +11,7 @@ app.use(methodOverride('_method'));
 app.use(morgan('tiny'));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
-
-
-
-  
+ 
 //ROOT
 app.get("/", function (req,res){
   db.Todo.find({}, function (err, todos){
@@ -28,11 +25,6 @@ app.get("/", function (req,res){
         }
     });
   });
-});
-
-
-//EDIT
-app.get("/users/:id/edit", function (req,res){
 });
 
 //CREATE
@@ -92,10 +84,6 @@ app.delete("/clear", function (req,res){
   });
 
 });
-
-
-
-
 
 app.get('*', function(req,res){
   res.render('404');

@@ -8,26 +8,17 @@
 </head>
 <body>
 <h1>Todo App</h1>
-
-
 <form>
   <!-- Value: specifies whats in the input -->
   <input type="text" name="" id="input">  
 <button type="submit" id="add_todo">Add Todo</button>
 <button type="submit" id="clear">Clear</button> 
 </form>
-
 <ul>
 <% todos.forEach(function (el){%>
   <li><%=el.task%></li>
  <%})%>  
 </ul>
-
-
-  
-
-
-
 <script src="/js/script.js"  type="text/javascript"></script>
 </body>
 </html>

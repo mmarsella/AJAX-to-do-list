@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
-//When page loads, create list
-
+//When page loads, create a list with ejs
 $.ajax({
   url:"/",
   dataType:"json",
@@ -13,8 +12,6 @@ $.ajax({
   $("ul").append("<li>"+el.task+"<button class='del' data-id=" + el._id + " type='button'>X</button>" + "</li>");
   });
 });
-
-
 
 /**********CREATE**************/
 /******************************/
@@ -46,7 +43,8 @@ $.ajax({
       }
     });
 
-/**** CLEAR BUTTON ***************/
+/********** CLEAR BUTTON ***************/
+/***************************************/
 $("#clear").on("click", function(e){
   e.preventDefault();
     $('ul').empty();  //clear out all the todos.
@@ -70,30 +68,16 @@ $("#clear").on("click", function(e){
       dataType:"json",
       method:"DELETE",
     }).done(function(){
-   
       });
     });
     //end delete click
 
 /******** CROSSOUT *********/
+/***************************/
 function addCrossout(){
   $("li").on("click",function (){
     $(this).toggleClass("completed");
   });  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 });  // End of onload
