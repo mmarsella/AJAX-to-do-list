@@ -18,7 +18,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 //ROOT
 app.get("/", function (req,res){
   db.Todo.find({}, function (err, todos){
-    res.render("index",{todos:todos});
+    res.format({
+       'text/html': function(){
+          res.render("index",{todos:todos});
+        },
+        'default': function() {
+          // log the request and respond with 406
+          res.status(406).send('Not Acceptable');
+        }
+    });
   });
 });
 

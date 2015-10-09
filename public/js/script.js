@@ -1,5 +1,21 @@
 $(document).ready(function(){
 
+//When page loads, create list
+
+$.ajax({
+  url:"/",
+  dataType:"json",
+  method:"GET",
+}).done(function(response){
+  console.log(response);
+  var array = response.todos;
+  array.forEach(function(el){
+  $("ul").append("<li>"+el.task+"<button class='del' data-id=" + el._id + " type='button'>X</button>" + "</li>");
+  });
+});
+
+
+
 /**********CREATE**************/
 /******************************/
 
@@ -23,7 +39,6 @@ $(document).ready(function(){
         array.forEach(function(el){
         $("ul").append("<li>"+el.task+"<button class='del' data-id=" + el._id + " type='button'>X</button>" + "</li>");
         });
-         delItemAndRefresh(); //will only work inside of .done b/c the dom (when first loaded) doesn't know about all of the new li's.
          addCrossout();
         });  //END OF SUBMIT .done
     }else{
@@ -47,11 +62,9 @@ $("#clear").on("click", function(e){
 /***************************/
  
 //after delete, add all of the li's w/ a on click/del event listener
-
   $("body").on("click", ".del" ,function (e){
     //remove element w/jquery
     $(this).parent().remove();
-    var delButton = $(this).data("id");  // this refers to the delegate..... .del
     $.ajax({
       url:"/todos/"+$(this).data("id"),
       dataType:"json",
@@ -62,10 +75,7 @@ $("#clear").on("click", function(e){
     });
     //end delete click
 
-
-
 /******** CROSSOUT *********/
-
 function addCrossout(){
   $("li").on("click",function (){
     $(this).toggleClass("completed");
